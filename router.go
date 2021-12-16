@@ -9,7 +9,7 @@ func setupRouter() (r *gin.Engine) {
 	r = gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./statics", true)))
 
-	s := r.Group("/api/v1")
+	// s := r.Group("/api/v1")
 	// s.POST("/upload", uploadFile)
 	return
 }
