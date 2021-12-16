@@ -5,14 +5,24 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Println("unread .env")
+	}
+
+	port := os.Getenv("PORT")
+
 	http.HandleFunc("/create", create)
 	http.HandleFunc("/read", read)
 
-	log.Println("ListenAndServe on localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Printf("ListenAndServe on localhost:%s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func create(w http.ResponseWriter, r *http.Request) {
