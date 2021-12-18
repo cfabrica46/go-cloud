@@ -1,4 +1,9 @@
-let btnUpload = document.getElementById("upload");
+const btnUpload = document.getElementById("option-upload");
+const btnLoad = document.getElementById("option-load");
+
+btnUpload.addEventListener("click", goToUpload);
+
+/* let btnUpload = document.getElementById("upload");
 btnUpload.addEventListener("click", uploadFile);
 
 function uploadFile() {
@@ -25,4 +30,4 @@ function uploadFile() {
             let title = document.getElementById("title");
             title.textContent = "Failure to Upload File";
         });
-}
+} */
