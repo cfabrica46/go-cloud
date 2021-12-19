@@ -13,10 +13,10 @@ func main() {
 		log.Println("unread .env")
 	}
 
-	port := os.Getenv("PORT")
+	portHTTP := os.Getenv("PORT")
+	portHTTPS := os.Getenv("PORTHTTPS")
 
-	r := setupRouter()
-	err = r.Run(":" + port)
+	err = runServer(portHTTP, portHTTPS)
 	if err != nil {
 		log.Fatal(err)
 	}

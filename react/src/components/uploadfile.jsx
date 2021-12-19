@@ -1,29 +1,34 @@
+import ReactDOM from "react-dom";
 import React, { useState } from "react";
 const UploadFile = () => {
     const [selectedFile, setSelectedFile] = useState(undefined);
 
     const handleSubmit = () => {
-        console.log(selectedFile);
-
         let dataForm = new FormData();
         dataForm.append("file", selectedFile);
 
         fetch("http://localhost:8080/api/v1/upload", {
             method: "POST",
             body: dataForm,
+            mode: "no-cors",
         })
             .then((responsive) => {
                 if (responsive.status >= 400) {
-                    throw true;
+                    console.log(responsive.status);
+                    throw responsive.status;
                 }
             })
             .then(() => {
-                let title = document.getElementById("title");
-                title.textContent = "Uploaded File";
+                ReactDOM.render(
+                    <h1>Uploaded File</h1>,
+                    document.getElementById("root")
+                );
             })
             .catch(() => {
-                let title = document.getElementById("title");
-                title.textContent = "Failure to Upload File";
+                ReactDOM.render(
+                    <h1>Failure to Upload File</h1>,
+                    document.getElementById("root")
+                );
             });
     };
 
