@@ -1,44 +1,40 @@
 package handler
 
 import (
-	"io/ioutil"
-	"mime/multipart"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-type Form struct {
-	File *multipart.FileHeader `form:"file"`
-}
-
 func UploadFile(c *gin.Context) {
-	var form Form
 
-	err := c.ShouldBind(&form)
+	file, err := c.FormFile("file")
 	if err != nil {
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, "err")
 		return
 	}
 
-	fileName := form.File.Filename
-
-	openedFile, err := form.File.Open()
+	err = c.SaveUploadedFile(file, "cloud/"+file.Filename)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "err")
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, "err")
 		return
 	}
 
-	file, err := ioutil.ReadAll(openedFile)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, "err")
-		return
-	}
+}
 
-	err = ioutil.WriteFile("cloud/"+fileName, file, 0644)
+func LoadFile(c *gin.Context) {
+	log.Println("uwu")
+
+	c.File("cloud/beta.png")
+
+	/* _, err := c.Writer.Write([]byte("hola"))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "err")
-		return
-	}
+		log.Println(err)
+	} */
+
+	c.JSON(http.StatusOK, "1")
 
 }

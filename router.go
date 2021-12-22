@@ -4,23 +4,33 @@ import (
 	"net/http"
 
 	"github.com/cfabrica46/go-cloud/handler"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-func test(c *gin.Context) {
-	c.JSON(http.StatusOK, "hola")
+func setCors(router *gin.Engine) {
+	config := cors.DefaultConfig()
+	config.AllowAllOrigins = true
+
+	router.Use(cors.New(config))
 }
 
 func setupRouter() (r *gin.Engine) {
 	r = gin.Default()
-	r.GET("/", test)
+
+	setCors(r)
+
 	s := r.Group("/api/v1")
 	s.POST("/upload", handler.UploadFile)
+	s.GET("/load", handler.LoadFile)
 	return
 }
 
 func runRedirectHTTPToHTTPS(portHTTP, portHTTPS string) {
 	httpRouter := gin.Default()
+
+	setCors(httpRouter)
+
 	httpRouter.Any("/*path", func(c *gin.Context) {
 		c.Redirect(http.StatusPermanentRedirect, "https://localhost:"+portHTTPS+c.Request.RequestURI)
 	})

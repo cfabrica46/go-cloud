@@ -1,9 +1,9 @@
-const Load = () => {
+const LoadFile = () => {
     return (
         <>
-            <h1>Load</h1>
+            <h1>Uploaded Files</h1>
         </>
     );
 };
 
-export default Load;
+export default LoadFile;

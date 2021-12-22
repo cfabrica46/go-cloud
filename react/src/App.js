@@ -1,13 +1,30 @@
 import ReactDOM from "react-dom";
 import UploadFile from "./components/uploadfile";
-import Load from "./components/loadfile";
+import LoadFile from "./components/loadfile";
 
 const App = () => {
     let handleUpload = () => {
         ReactDOM.render(<UploadFile />, document.getElementById("root"));
     };
     let handleLoad = () => {
-        ReactDOM.render(<Load />, document.getElementById("root"));
+        fetch("http://localhost:8080/api/v1/load", {})
+            .then((responsive) => {
+                console.log(responsive.status);
+                if (responsive.status >= 400) {
+                    throw responsive.status;
+                }
+                return responsive;
+            })
+            .then((resp) => {
+                console.log(resp);
+                ReactDOM.render(<LoadFile />, document.getElementById("root"));
+            })
+            .catch(() => {
+                ReactDOM.render(
+                    <h1>Failure to Load File</h1>,
+                    document.getElementById("root")
+                );
+            });
     };
     return (
         <>

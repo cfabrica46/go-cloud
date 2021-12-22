@@ -10,7 +10,6 @@ const UploadFile = () => {
         fetch("http://localhost:8080/api/v1/upload", {
             method: "POST",
             body: dataForm,
-            mode: "no-cors",
         })
             .then((responsive) => {
                 if (responsive.status >= 400) {
