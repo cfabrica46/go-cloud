@@ -15,8 +15,10 @@ const App = () => {
                 return responsive.json();
             })
             .then((resp) => {
-                console.log(resp);
-                ReactDOM.render(<LoadFile />, document.getElementById("root"));
+                ReactDOM.render(
+                    <LoadFile filesURL={resp} />,
+                    document.getElementById("root")
+                );
             })
             .catch(() => {
                 ReactDOM.render(
