@@ -9,11 +9,10 @@ const App = () => {
     let handleLoad = () => {
         fetch("http://localhost:8080/api/v1/load", {})
             .then((responsive) => {
-                console.log(responsive.status);
                 if (responsive.status >= 400) {
                     throw responsive.status;
                 }
-                return responsive;
+                return responsive.json();
             })
             .then((resp) => {
                 console.log(resp);

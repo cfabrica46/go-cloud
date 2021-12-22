@@ -20,6 +20,8 @@ func setupRouter() (r *gin.Engine) {
 
 	setCors(r)
 
+	r.StaticFS("/cloud", http.Dir("cloud"))
+
 	s := r.Group("/api/v1")
 	s.POST("/upload", handler.UploadFile)
 	s.GET("/load", handler.LoadFile)
