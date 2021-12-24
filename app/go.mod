@@ -1,8 +1,9 @@
-module github.com/cfabrica46/go-cloud
+module github.com/cfabrica46/go-cloud/app
 
 go 1.17
 
 require (
+	github.com/cfabrica46/go-cloud v0.0.0-20211222012728-571c79751cf6
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/joho/godotenv v1.4.0

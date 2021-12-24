@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+    react:
+        build: ./react
+        ports:
+            - "3000:3000"
+
+    app:
+        build: ./app
+        restart: always
+        environment:
+            - PORT=8080
+            - PORTHTTPS=8081
+        depends_on:
+            - react
+        ports:
+            - "8080:8080"
+            - "8081:8081"
